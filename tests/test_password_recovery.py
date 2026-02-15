@@ -14,7 +14,7 @@ class TestPasswordRecovery:
     def test_open_page_restore_password(self, driver):
         main_page = MainPage(driver)
         main_page.open_main_page()
-        main_page.click_personal_account_button()
+        main_page.click_personal_account_header()
 
         login_page = LoginPage(driver)
         login_page.click_recover_password()
@@ -31,7 +31,7 @@ class TestPasswordRecovery:
         main_page = MainPage(driver)
         main_page.open_main_page()
         main_page.wait_url_main_page()
-        main_page.click_personal_account_button()
+        main_page.click_personal_account_header()
 
         login_page = LoginPage(driver)
         login_page.click_recover_password()
@@ -52,7 +52,7 @@ class TestPasswordRecovery:
         main_page = MainPage(driver)
         main_page.open_main_page()
         main_page.wait_url_main_page()
-        main_page.click_personal_account_button()
+        main_page.click_personal_account_header()
 
         login_page = LoginPage(driver)
         login_page.click_recover_password()

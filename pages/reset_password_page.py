@@ -33,6 +33,6 @@ class ResetPasswordPage(BasePage):
     def wait_active_password_field(self):
         return self.wait_visible_return(RPL.PASSWORD_FIELD_ACTIVE)
 
-    @allure.step('Ожидаем url reset-password')
+    @allure.step('Ожидаем URL /reset-password')
     def wait_url_reset_password(self):
         self.wait_url(RESET_PASSWORD_URL)

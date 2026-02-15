@@ -1,9 +1,22 @@
 from selenium.webdriver.common.by import By
 
 class BasePageLocators:
-    MODAL = (By.CSS_SELECTOR, "[class*='Modal_modal']")
-    PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//a[p[normalize-space()='Личный Кабинет']]")
+    MODAL_OVERLAY = (By.CSS_SELECTOR, "[class*='Modal_modal_overlay']")
+    CLOSE_MODAL_BUTTON = (By.XPATH, "//button[contains(@class,'close')]")
+    PERSONAL_ACCOUNT_HEADER = (By.XPATH, "//a[p[normalize-space()='Личный Кабинет']]")
+    CONSTRUCTOR_HEADER = (By.XPATH, "//p[normalize-space()='Конструктор']")
+    ORDER_FEED_HEADER = (By.XPATH, "//a[.//p[normalize-space()='Лента Заказов']]")
     LOGOUT_LINK = (By.XPATH, "//button[normalize-space()='Выход']")
+
+class MainPageLocators:
+    CREATE_BURGER_TITLE = (By.XPATH, "//h1[normalize-space()='Соберите бургер']")
+
+class IngredientPageLocators:
+    INGREDIENT_DETAILS = (By.XPATH, "//h2[normalize-space()='Детали ингредиента']")
+    CALORIES_LABEL = (By.XPATH, "//p[normalize-space()='Калории,ккал']")
+    PROTEIN_LABEL = (By.XPATH, "//p[normalize-space()='Белки, г']")
+    FATS_LABEL = (By.XPATH, "//p[normalize-space()='Жиры, г']")
+    CARBOHYDRATES_LABEL = (By.XPATH, "//p[normalize-space()='Углеводы, г']")
 
 class OrderHistoryLocators:
     ORDER_HISTORY_LINK = (By.XPATH, "//a[normalize-space()='История заказов']")
@@ -24,3 +37,7 @@ class ResetPasswordLocators: # /reset-password
     NEW_PASSWORD_FIELD = (By.XPATH, "//input[@name='Введите новый пароль']")
     HIDDEN_PASSWORD_BUTTON = (By.XPATH, "//div[contains(@class,'input__icon')]")
     PASSWORD_FIELD_ACTIVE = (By.CSS_SELECTOR, ".input_status_active")
+
+class OrderFeedLocators:
+    ORDER_FEED_TITLE = (By.XPATH, "//h1[normalize-space()='Лента заказов']")
+

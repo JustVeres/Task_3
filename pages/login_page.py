@@ -5,13 +5,13 @@ from data.data_urls import *
 
 class LoginPage(BasePage):
 
-    @allure.step('Открыть url stellarburgers/login')
+    @allure.step('Открыть URL /stellarburgers/login')
     def open_login_page(self):
         self.open(LOGIN_URL)
         self.wait_url(LOGIN_URL)
-        self.wait_invisible(BPL.MODAL)
+        self.wait_invisible(BPL.MODAL_OVERLAY)
 
-    @allure.step('Ожидаем url stellarburgers/login')
+    @allure.step('Ожидаем URL /stellarburgers/login')
     def wait_url_login_page(self):
         self.wait_url(LOGIN_URL)
 
@@ -33,5 +33,5 @@ class LoginPage(BasePage):
 
     @allure.step('Клик по кнопке «Войти»')
     def click_login_button(self):
-        self.wait_invisible(BPL.MODAL)
+        self.wait_invisible(BPL.MODAL_OVERLAY)
         self.js_click(LPL.LOGIN_BUTTON)

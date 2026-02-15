@@ -5,7 +5,7 @@ from locators import OrderHistoryLocators as OHL
 
 class OrderHistoryPage(BasePage):
 
-    @allure.step('Ожидаем url order-history')
+    @allure.step('Ожидаем URL /order-history')
     def wait_url_order_history(self):
         self.wait_url(ORDER_HISTORY_URL)
 

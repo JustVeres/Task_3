@@ -5,11 +5,11 @@ from locators import BasePageLocators as BPL
 
 class AccountProfilePage(BasePage):
 
-    @allure.step('Открываем url account/profile')
+    @allure.step('Открываем URL /account/profile')
     def get_open_url_account_profile(self):
         self.open(ACCOUNT_PROFILE_URL)
 
-    @allure.step('Ожидаем url account/profile')
+    @allure.step('Ожидаем URL /account/profile')
     def wait_url_account_profile(self):
         self.wait_url(ACCOUNT_PROFILE_URL)
 

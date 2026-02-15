@@ -12,7 +12,7 @@ class TestPersonalAccount:
     def test_open_page_personal_account(self, driver, logged_in_user):
         main_page = MainPage(driver)
         main_page.wait_url_main_page()
-        main_page.click_personal_account_button()
+        main_page.click_personal_account_header()
 
         account_profile_page = AccountProfilePage(driver)
         account_profile_page.wait_url_account_profile()
@@ -24,7 +24,7 @@ class TestPersonalAccount:
     def test_open_page_order_history(self, driver, logged_in_user):
         main_page = MainPage(driver)
         main_page.wait_url_main_page()
-        main_page.click_personal_account_button()
+        main_page.click_personal_account_header()
 
         order_history_page = OrderHistoryPage(driver)
         order_history_page.click_order_history_link()
@@ -37,7 +37,7 @@ class TestPersonalAccount:
     def test_logout_account_profile(self, driver, logged_in_user):
         main_page = MainPage(driver)
         main_page.wait_url_main_page()
-        main_page.click_personal_account_button()
+        main_page.click_personal_account_header()
 
         account_profile_page = AccountProfilePage(driver)
         account_profile_page.wait_url_account_profile()
