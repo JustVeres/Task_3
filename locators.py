@@ -1,11 +1,19 @@
 from selenium.webdriver.common.by import By
 
 class BasePageLocators:
+    MODAL = (By.CSS_SELECTOR, "[class*='Modal_modal']")
     PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//a[p[normalize-space()='Личный Кабинет']]")
-    LOADER = (By.XPATH, "//div[@class='Modal_modal_overlay__x2ZCr']")
+    LOGOUT_LINK = (By.XPATH, "//button[normalize-space()='Выход']")
+
+class OrderHistoryLocators:
+    ORDER_HISTORY_LINK = (By.XPATH, "//a[normalize-space()='История заказов']")
 
 class LoginPageLocators: # /login
     RECOVER_THE_PASSWORD = (By.XPATH, "//a[@href='/forgot-password' and text()='Восстановить пароль']")
+    EMAIL_FIELD = (By.NAME, "name")
+    PASSWORD_FIELD = (By.NAME, 'Пароль')
+    LOGIN_BUTTON = (By.XPATH, "//button[normalize-space()='Войти']")
+    LOGIN_TITLE = (By.XPATH, "//h2[normalize-space()='Вход']")
 
 class ForgotPasswordLocators: # /forgot-password
     EMAIL_FIELD = (By.XPATH, "//input[contains(@class,'input__textfield') and @name='name']")

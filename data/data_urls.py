@@ -1,3 +1,11 @@
+"""URL"""
 BASE_URL = "https://stellarburgers.education-services.ru/"
+LOGIN_URL = BASE_URL + "login"
 FORGOT_PASSWORD_URL = BASE_URL + "forgot-password"
 RESET_PASSWORD_URL = BASE_URL + "reset-password"
+ACCOUNT_PROFILE_URL = BASE_URL + "account/profile"
+ORDER_HISTORY_URL = BASE_URL + "account/order-history"
+
+"""API"""
+AUTH_REGISTER_API = BASE_URL + "api/auth/register"
+DELETE_USER_API = BASE_URL + "api/auth/user"

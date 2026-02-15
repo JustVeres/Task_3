@@ -18,6 +18,10 @@ class TestPasswordRecovery:
 
         login_page = LoginPage(driver)
         login_page.click_recover_password()
+
+        forgot_password_page = ForgotPasswordPage(driver)
+        forgot_password_page.wait_url_forgot_password()
+
         assert driver.current_url == FORGOT_PASSWORD_URL
 
 
@@ -26,6 +30,7 @@ class TestPasswordRecovery:
     def test_redirect_to_forgot_password_after_click_recover(self, driver):
         main_page = MainPage(driver)
         main_page.open_main_page()
+        main_page.wait_url_main_page()
         main_page.click_personal_account_button()
 
         login_page = LoginPage(driver)
@@ -36,6 +41,7 @@ class TestPasswordRecovery:
         forgot_password_page.click_button_restore()
 
         reset_password_page = ResetPasswordPage(driver)
+        reset_password_page.wait_url_reset_password()
 
         assert "Восстановление пароля" in reset_password_page.wait_password_recovery_text()
         assert driver.current_url == RESET_PASSWORD_URL
@@ -45,6 +51,7 @@ class TestPasswordRecovery:
     def test_click_hidden_password(self, driver):
         main_page = MainPage(driver)
         main_page.open_main_page()
+        main_page.wait_url_main_page()
         main_page.click_personal_account_button()
 
         login_page = LoginPage(driver)

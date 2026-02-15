@@ -9,7 +9,7 @@ class ResetPasswordPage(BasePage):
     @allure.step('Ожидание заголовка «Восстановление пароля»')
     def wait_password_recovery_text(self):
         self.get_url_contains(RESET_PASSWORD_URL)
-        return self.wait_visible(RPL.PASSWORD_RECOVERY).text
+        return self.wait_visible_return(RPL.PASSWORD_RECOVERY).text
 
     @allure.step('Ввод в поле «Пароль»')
     def input_new_password(self):
@@ -17,18 +17,22 @@ class ResetPasswordPage(BasePage):
 
     @allure.step('Клик по иконке «Глаз»')
     def click_visible_hidden_password_button(self):
-        self.wait_visible(RPL.HIDDEN_PASSWORD_BUTTON)
+        self.wait_visible_return(RPL.HIDDEN_PASSWORD_BUTTON)
         self.wait_clickable_and_click(RPL.HIDDEN_PASSWORD_BUTTON)
 
     @allure.step('Ждем, что поле «Пароль» заполнено и возвращаем значение')
     def get_password_value(self):
-        element = self.wait_visible(RPL.NEW_PASSWORD_FIELD)
+        element = self.wait_visible_return(RPL.NEW_PASSWORD_FIELD)
         return element.get_attribute("value")
 
     @allure.step('Ожидаем видимость поля «Пароль»')
     def is_password_field_focused(self):
-        return self.wait_visible(RPL.NEW_PASSWORD_FIELD)
+        return self.wait_visible_return(RPL.NEW_PASSWORD_FIELD)
 
     @allure.step('Ожидаем подсвечивание поля «Пароль»')
     def wait_active_password_field(self):
-        return self.wait_visible(RPL.PASSWORD_FIELD_ACTIVE)
+        return self.wait_visible_return(RPL.PASSWORD_FIELD_ACTIVE)
+
+    @allure.step('Ожидаем url reset-password')
+    def wait_url_reset_password(self):
+        self.wait_url(RESET_PASSWORD_URL)
