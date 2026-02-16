@@ -2,6 +2,7 @@ import allure
 import pytest
 from data.data_urls import *
 from data.data_titles import *
+from data.data_helpers import BadValue
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.order_feed_page import OrderFeedPage
@@ -127,5 +128,6 @@ class TestBasicFunctionality:
 
         main_page.close_modal()
         with allure.step("ОР: в модальном окне есть информация о заказе"):
-            assert main_page.wait_order_number() is not None
+            assert main_page.wait_real_order_number() is not None
+            assert main_page.wait_real_order_number() != BadValue.bad_value_order_id
             assert main_page.wait_order_status() == "Ваш заказ начали готовить"

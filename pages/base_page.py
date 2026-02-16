@@ -90,3 +90,16 @@ class BasePage:
         (eventType === 'dragstart' || eventType === 'dragend' ? arguments[0] : arguments[1]).dispatchEvent(event);
         });
         """, source, target)
+
+
+    def wait_text_not_equal(self, locator, bad_value):
+        def _condition(driver):
+            element = driver.find_element(*locator)
+            text = element.text.strip()
+
+            if text and text != bad_value:
+                return text  # вернём уже корректный текст
+
+            return False
+
+        return self.wait.until(_condition)

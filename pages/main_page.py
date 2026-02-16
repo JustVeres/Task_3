@@ -2,6 +2,7 @@ import allure
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from data.data_urls import *
+from data.data_helpers import BadValue
 from locators import BasePageLocators as BPL, MainPageLocators as MPL
 
 class MainPage(BasePage):
@@ -43,12 +44,12 @@ class MainPage(BasePage):
         return self.find_locator(locator).text
 
     """Модалка с оформленным заказом"""
-    @allure.step('Ждём появления номера заказа')
-    def wait_order_number(self):
-        element = self.wait_visible_return(MPL.ORDER_ID_MODAL)
-        return element.text
 
     @allure.step('Ждём появления статуса заказа')
     def wait_order_status(self):
         element = self.wait_visible_return(MPL.ORDER_STATUS_MODAL)
         return element.text
+
+    @allure.step('Ждём появления корректного номера заказа')
+    def wait_real_order_number(self):
+        return self.wait_text_not_equal(MPL.ORDER_ID_MODAL, BadValue.bad_value_order_id)
