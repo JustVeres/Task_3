@@ -26,17 +26,19 @@ class MainPage(BasePage):
 
     @allure.step('Клик по кнопке «Оформить заказ»')
     def click_order_button(self):
-        self.wait_clickable_and_click(MPL.ORDER_BUTTON)
+        self.click(MPL.ORDER_BUTTON)
 
     """Ингридиенты"""
     @allure.step('Кликаем по ингредиенту')
     def click_ingredient(self, name):
         locator = (By.XPATH, f"//p[normalize-space()='{name}']")
-        self.wait_clickable_and_click(locator)
+        self.click(locator)
 
     @allure.step('Находим ингредиент')
     def find_ingredient(self, name):
-        return self.driver.find_element(By.XPATH, f"//p[normalize-space()='{name}']")
+        locator = (By.XPATH, f"//p[normalize-space()='{name}']")
+        self.wait_visible(locator)
+        return self.driver.find_element(*locator)
 
     @allure.step('Получаем счётчик ингредиента по имени')
     def get_ingredient_counter(self, ingredient_element):
@@ -53,3 +55,8 @@ class MainPage(BasePage):
     @allure.step('Ждём появления корректного номера заказа')
     def wait_real_order_number(self):
         return self.wait_text_not_equal(MPL.ORDER_ID_MODAL, BadValue.bad_value_order_id)
+
+    @allure.step("Получаем номер успешного заказа из модального окна")
+    def get_success_order_number_from_modal(self):
+        element = self.wait_visible_return(MPL.ORDER_ID_MODAL)
+        return element.text.strip()

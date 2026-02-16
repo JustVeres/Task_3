@@ -21,7 +21,7 @@ class LoginPage(BasePage):
 
     @allure.step('Клик по «Восстановить пароль»')
     def click_recover_password(self):
-        self.wait_clickable_and_click(LPL.RECOVER_THE_PASSWORD)
+        self.click(LPL.RECOVER_THE_PASSWORD)
 
     @allure.step('Заполнить поле «Email»')
     def input_email(self, email):

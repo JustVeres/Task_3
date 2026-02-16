@@ -12,7 +12,7 @@ class ForgotPasswordPage(BasePage):
 
     @allure.step('Клик по кнопке «Восстановить»')
     def click_button_restore(self):
-        self.wait_clickable_and_click(FPL.RESTORE_BUTTON)
+        self.click(FPL.RESTORE_BUTTON)
 
     @allure.step('Ожидаем URL /forgot-password"')
     def wait_url_forgot_password(self):

@@ -15,4 +15,4 @@ class AccountProfilePage(BasePage):
 
     @allure.step('Клик по «Выход»')
     def click_logout_link(self):
-        self.wait_clickable_and_click(BPL.LOGOUT_LINK)
+        self.click(BPL.LOGOUT_LINK)

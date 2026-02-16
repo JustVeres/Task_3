@@ -18,7 +18,7 @@ class ResetPasswordPage(BasePage):
     @allure.step('Клик по иконке «Глаз»')
     def click_visible_hidden_password_button(self):
         self.wait_visible_return(RPL.HIDDEN_PASSWORD_BUTTON)
-        self.wait_clickable_and_click(RPL.HIDDEN_PASSWORD_BUTTON)
+        self.click(RPL.HIDDEN_PASSWORD_BUTTON)
 
     @allure.step('Ждем, что поле «Пароль» заполнено и возвращаем значение')
     def get_password_value(self):
