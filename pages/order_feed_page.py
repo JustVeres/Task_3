@@ -6,7 +6,7 @@ from data.data_urls import *
 class OrderFeedPage(BasePage):
 
     @allure.step('Ожидаем URL /stellarburgers/feed')
-    def wait_url_login_page(self):
+    def wait_url_feed_page(self):
         self.wait_url(ORDER_FEED_URL)
 
     @allure.step('Находим заголовок «Лента заказов»')

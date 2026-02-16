@@ -10,9 +10,14 @@ class BasePageLocators:
 
 class MainPageLocators:
     CREATE_BURGER_TITLE = (By.XPATH, "//h1[normalize-space()='Соберите бургер']")
+    CONSTRUCTOR_BURGER = (By.CSS_SELECTOR, '.constructor-element_pos_bottom > span:nth-child(1) > span:nth-child(2)')
+    ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
+    ORDER_ID_MODAL = (By.XPATH, "//h2[contains(@class,'Modal_modal__title') and not(text()='')]")
+    ORDER_STATUS_MODAL = (By.XPATH, "//p[normalize-space()='Ваш заказ начали готовить']")
 
 class IngredientPageLocators:
-    INGREDIENT_DETAILS = (By.XPATH, "//h2[normalize-space()='Детали ингредиента']")
+    CLOSE_MODAL_BUTTON = (By.XPATH, "//button[contains(@class,'Modal_modal__close')]")
+    INGREDIENT_DETAILS_TITLE = (By.XPATH, "//h2[normalize-space()='Детали ингредиента']")
     CALORIES_LABEL = (By.XPATH, "//p[normalize-space()='Калории,ккал']")
     PROTEIN_LABEL = (By.XPATH, "//p[normalize-space()='Белки, г']")
     FATS_LABEL = (By.XPATH, "//p[normalize-space()='Жиры, г']")
@@ -40,4 +45,3 @@ class ResetPasswordLocators: # /reset-password
 
 class OrderFeedLocators:
     ORDER_FEED_TITLE = (By.XPATH, "//h1[normalize-space()='Лента заказов']")
-

@@ -19,7 +19,36 @@ class MainPage(BasePage):
     def find_create_burger_title(self):
         return self.find_element_text(MPL.CREATE_BURGER_TITLE)
 
+    @allure.step('Находим конструктор бургера')
+    def find_constructor_element(self):
+        return self.driver.find_element(*MPL.CONSTRUCTOR_BURGER)
+
+    @allure.step('Клик по кнопке «Оформить заказ»')
+    def click_order_button(self):
+        self.wait_clickable_and_click(MPL.ORDER_BUTTON)
+
     """Ингридиенты"""
+    @allure.step('Кликаем по ингредиенту')
     def click_ingredient(self, name):
         locator = (By.XPATH, f"//p[normalize-space()='{name}']")
         self.wait_clickable_and_click(locator)
+
+    @allure.step('Находим ингредиент')
+    def find_ingredient(self, name):
+        return self.driver.find_element(By.XPATH, f"//p[normalize-space()='{name}']")
+
+    @allure.step('Получаем счётчик ингредиента по имени')
+    def get_ingredient_counter(self, ingredient_element):
+        locator = (By.XPATH, f"//p[text()='{ingredient_element}']/parent::a/div/p")
+        return self.find_locator(locator).text
+
+    """Модалка с оформленным заказом"""
+    @allure.step('Ждём появления номера заказа')
+    def wait_order_number(self):
+        element = self.wait_visible_return(MPL.ORDER_ID_MODAL)
+        return element.text
+
+    @allure.step('Ждём появления статуса заказа')
+    def wait_order_status(self):
+        element = self.wait_visible_return(MPL.ORDER_STATUS_MODAL)
+        return element.text

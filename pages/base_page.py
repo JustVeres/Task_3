@@ -64,9 +64,13 @@ class BasePage:
         element = self.wait.until(EC.element_to_be_clickable(locator))
         self.driver.execute_script("arguments[0].click();", element)
 
-    @allure.step('Находим элемент')
+    @allure.step('Находим элемент и возвращаем текст')
     def find_element_text(self, locator):
         return self.driver.find_element(*locator).text
+
+    @allure.step("Найти локатор")
+    def find_locator(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
 
     @allure.step('Закрываем модальное окно при загрузке страницы')
     def close_modal(self):
@@ -76,3 +80,13 @@ class BasePage:
             self.wait.until(EC.invisibility_of_element_located(BPL.MODAL_OVERLAY))
         except:
             pass
+
+    @allure.step('Используем скрипт на перетаскивание элемента')
+    def drag_and_drop_js(self, source, target):
+        self.driver.execute_script("""
+        const dataTransfer = new DataTransfer();
+        ['dragstart', 'dragenter', 'dragover', 'drop', 'dragend'].forEach(eventType => {
+        const event = new DragEvent(eventType, { bubbles: true, cancelable: true, dataTransfer });
+        (eventType === 'dragstart' || eventType === 'dragend' ? arguments[0] : arguments[1]).dispatchEvent(event);
+        });
+        """, source, target)
