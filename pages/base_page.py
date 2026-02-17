@@ -36,6 +36,14 @@ class BasePage:
     def get_url_contains(self, url):
         return self.wait.until(EC.url_contains(url))
 
+    @allure.step("Получаем текущий URL")
+    def get_current_url(self):
+        return self.driver.current_url
+
+    @allure.step("Возвращаем активный элемент в фокусе")
+    def get_active_element(self):
+        return self.driver.switch_to.active_element
+
     @allure.step('Кликаем на элемент')
     def click(self, locator):
         try:
