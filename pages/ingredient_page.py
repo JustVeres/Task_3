@@ -7,7 +7,11 @@ class IngredientPage(BasePage):
 
     @allure.step('Находим заголовок «Детали ингредиента»')
     def find_details_ingredient_title(self):
-        return self.find_element_text(IPL.INGREDIENT_DETAILS_TITLE)
+        return self.wait_element_text(IPL.INGREDIENT_DETAILS_TITLE)
+
+    @allure.step('Ждем исчезновение заголовка «Детали ингредиента»')
+    def details_ingredient_title_invisible(self):
+        return self.wait_invisible(IPL.INGREDIENT_DETAILS_TITLE)
 
     @allure.step('Находим заголовок названия ингредиента')
     def find_ingredient_name(self, name):
@@ -16,16 +20,16 @@ class IngredientPage(BasePage):
 
     @allure.step('Находим метку «Калории»')
     def find_details_calories_label(self):
-        return self.find_element_text(IPL.CALORIES_LABEL)
+        return self.wait_element_text(IPL.CALORIES_LABEL)
 
     @allure.step('Находим метку «Белки»')
     def find_details_protein_label(self):
-        return self.find_element_text(IPL.PROTEIN_LABEL)
+        return self.wait_element_text(IPL.PROTEIN_LABEL)
 
     @allure.step('Находим метку «Жиры»')
     def find_details_fats_label(self):
-        return self.find_element_text(IPL.FATS_LABEL)
+        return self.wait_element_text(IPL.FATS_LABEL)
 
     @allure.step('Находим метку «Углеводы»')
     def find_details_carbohydrates_label(self):
-        return self.find_element_text(IPL.CARBOHYDRATES_LABEL)
+        return self.wait_element_text(IPL.CARBOHYDRATES_LABEL)

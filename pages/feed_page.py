@@ -13,8 +13,7 @@ class FeedPage(BasePage):
 
     @allure.step('Находим заголовок «Лента заказов»')
     def find_create_burger_title(self):
-        self.wait_visible(OFL.ORDER_FEED_TITLE)
-        return self.find_element_text(OFL.ORDER_FEED_TITLE)
+        return self.wait_element_text(OFL.ORDER_FEED_TITLE)
 
     @allure.step('Кликаем по первому видимому заказу в ленте')
     def click_first_order(self):

@@ -71,7 +71,7 @@ class TestBasicFunctionality:
             ingredient_page.close_modal()
 
         with allure.step("ОР: Модальное окно закрылось"):
-            assert ingredient_page.find_details_ingredient_title() != Titles.details_ingredient_title
+            assert ingredient_page.details_ingredient_title_invisible() is None
 
     @allure.title('Проверка основного функционала')
     @allure.description('При добавлении ингредиента в заказ, увеличивается каунтер данного ингредиента')

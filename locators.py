@@ -10,7 +10,7 @@ class BasePageLocators:
     LOGOUT_LINK = (By.XPATH, "//button[normalize-space()='Выход']")
 
 class MainPageLocators:
-    CREATE_BURGER_TITLE = (By.XPATH, "//h1[normalize-space()='Соберите бургер']")
+    CREATE_BURGER_TITLE = (By.XPATH, '//section[contains(@class, "BurgerIngredients_ingredients")]/h1')
     CONSTRUCTOR_BURGER = (By.CSS_SELECTOR, '.constructor-element_pos_bottom > span:nth-child(1) > span:nth-child(2)')
     ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
     ORDER_ID_MODAL = (By.XPATH, "//h2[contains(@class,'Modal_modal__title') and not(text()='')]")

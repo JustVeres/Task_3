@@ -17,7 +17,7 @@ class LoginPage(BasePage):
 
     @allure.step("Находим заголовок «Вход»")
     def find_login_title(self):
-        return self.find_element_text(LPL.LOGIN_TITLE)
+        return self.wait_element_text(LPL.LOGIN_TITLE)
 
     @allure.step('Клик по «Восстановить пароль»')
     def click_recover_password(self):

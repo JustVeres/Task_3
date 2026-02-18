@@ -18,7 +18,7 @@ class MainPage(BasePage):
 
     @allure.step('Находим заголовок «Соберите бургер»')
     def find_create_burger_title(self):
-        return self.find_element_text(MPL.CREATE_BURGER_TITLE)
+        return self.wait_element_text(MPL.CREATE_BURGER_TITLE)
 
     @allure.step('Находим конструктор бургера')
     def find_constructor_element(self):

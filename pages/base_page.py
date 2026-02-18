@@ -63,10 +63,6 @@ class BasePage:
     def find_locator(self, locator):
         return self.wait.until(EC.presence_of_element_located(locator))
 
-    @allure.step('Находим элемент и возвращаем текст')
-    def find_element_text(self, locator):
-        return self.driver.find_element(*locator).text
-
     @allure.step('Смотрим на текст')
     def wait_text_not_equal(self, locator, bad_value):
         def _condition(driver):
@@ -82,14 +78,9 @@ class BasePage:
 
     @allure.step('Закрываем модальное окно при загрузке страницы')
     def close_modal(self):
-        try:
-            self.wait.until(EC.visibility_of_element_located(BPL.MODAL_OVERLAY))
-            self.click(BPL.CLOSE_MODAL_BUTTON)
-            self.wait.until(EC.invisibility_of_element_located(BPL.MODAL_OVERLAY))
-
-        except:
-            pass
-
+        self.wait.until(EC.visibility_of_element_located(BPL.MODAL_OVERLAY))
+        self.click(BPL.CLOSE_MODAL_BUTTON)
+        self.wait.until(EC.invisibility_of_element_located(BPL.MODAL_OVERLAY))
 
     """Ожидание: видимость/исчезновение"""
 
@@ -117,6 +108,11 @@ class BasePage:
     @allure.step('Ожидаем исчезновение GIF анимации загрузки')
     def wait_invisible_animation(self):
         self.wait_invisible(BPL.MODAL_OVERLAY_ANIMATION)
+
+    @allure.step('Ожидаем видимость элемента и возвращаем текст')
+    def wait_element_text(self, locator):
+        self.wait_visible(locator)
+        return self.driver.find_element(*locator).text
 
     @allure.step("Ждём обновления числового значения")
     def wait_number_to_increase(self, locator, value):
