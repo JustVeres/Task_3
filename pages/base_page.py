@@ -1,0 +1,166 @@
+import allure
+from selenium.common import ElementClickInterceptedException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from locators import BasePageLocators as BPL
+
+class BasePage:
+    def __init__(self, driver):
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 5)
+
+    """Хедеры"""
+    @allure.step('Клик по «Личный кабинет» в хедере')
+    def click_personal_account_header(self):
+        self.wait_visible(BPL.PERSONAL_ACCOUNT_HEADER)
+        self.click(BPL.PERSONAL_ACCOUNT_HEADER)
+
+    @allure.step('Клик по «Конструктор» в хедере')
+    def click_constructor_header(self):
+        self.wait_visible(BPL.CONSTRUCTOR_HEADER)
+        self.click(BPL.CONSTRUCTOR_HEADER)
+
+    @allure.step('Клик по «Лента заказов» в хедере')
+    def click_order_feed_header(self):
+        self.wait_visible(BPL.ORDER_FEED_HEADER)
+        self.click(BPL.ORDER_FEED_HEADER)
+
+
+    """Вспомогательные методы"""
+    """Действие: открыть/кликнуть/выбрать/ввести/вернуть etc."""
+
+    @allure.step('Открыть URL')
+    def open(self, url):
+        self.driver.get(url)
+
+    @allure.step('Возвращаем URL')
+    def get_url_contains(self, url):
+        return self.wait.until(EC.url_contains(url))
+
+    @allure.step("Получаем текущий URL")
+    def get_current_url(self):
+        return self.driver.current_url
+
+    @allure.step("Возвращаем активный элемент в фокусе")
+    def get_active_element(self):
+        return self.driver.switch_to.active_element
+
+    @allure.step('Кликаем на элемент')
+    def click(self, locator):
+        try:
+            element = self.wait.until(EC.element_to_be_clickable(locator))
+            element.click()
+        except ElementClickInterceptedException:
+            element = self.wait.until(EC.visibility_of_element_located(locator))
+            self.execute_script("arguments[0].click();", element)
+
+    @allure.step('Вводим текст в поле')
+    def input_text(self, locator, text):
+        element = self.wait_visible_return(locator)
+        element.send_keys(text)
+
+    @allure.step("Найти локатор")
+    def find_locator(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
+
+    @allure.step('Смотрим на текст')
+    def wait_text_not_equal(self, locator, bad_value):
+        def _condition(driver):
+            element = driver.find_element(*locator)
+            text = element.text.strip()
+
+            if text and text != bad_value:
+                return text  # вернём уже корректный текст
+
+            return False
+
+        return self.wait.until(_condition)
+
+    @allure.step('Закрываем модальное окно при загрузке страницы')
+    def close_modal(self):
+        self.wait.until(EC.visibility_of_element_located(BPL.MODAL_OVERLAY))
+        self.click(BPL.CLOSE_MODAL_BUTTON)
+        self.wait.until(EC.invisibility_of_element_located(BPL.MODAL_OVERLAY))
+
+    """Ожидание: видимость/исчезновение"""
+
+    @allure.step("Ожидать все элементы")
+    def find_all_elements(self, locator):
+        self.wait.until(EC.visibility_of_all_elements_located(locator))
+        return self.driver.find_elements(*locator)
+
+    @allure.step('Ожидаем URL')
+    def wait_url(self, url):
+        self.wait.until(EC.url_to_be(url))
+
+    @allure.step('Ожидаем и возвращаем видимый элемент')
+    def wait_visible_return(self, locator): #
+        return self.wait.until(EC.visibility_of_element_located(locator))
+
+    @allure.step('Ожидание видимости элемента')
+    def wait_visible(self, locator):
+        self.wait.until(EC.visibility_of_element_located(locator))
+
+    @allure.step('Ожидаем исчезновение элемента')
+    def wait_invisible(self, locator):
+        self.wait.until(EC.invisibility_of_element_located(locator))
+
+    @allure.step('Ожидаем исчезновение GIF анимации загрузки')
+    def wait_invisible_animation(self):
+        self.wait_invisible(BPL.MODAL_OVERLAY_ANIMATION)
+
+    @allure.step('Ожидаем видимость элемента и возвращаем текст')
+    def wait_element_text(self, locator):
+        self.wait_visible(locator)
+        return self.driver.find_element(*locator).text
+
+    @allure.step("Ждём обновления числового значения")
+    def wait_number_to_increase(self, locator, value):
+        def condition(driver):
+            element = driver.find_element(*locator)
+            actual_value = int(element.text)
+
+            if actual_value > value:
+                return actual_value
+
+            return False
+
+        return self.wait.until(condition)
+
+    @allure.step("Ждём появления текста в элементе")
+    def wait_text_to_be_present(self, locator, text):
+        self.wait.until(EC.text_to_be_present_in_element(locator, str(text)))
+
+
+    """Скрипты"""
+
+    @allure.step("Выполнение JavaScript")
+    def execute_script(self, script, *args):
+        return self.driver.execute_script(script, *args)
+
+    @allure.step("Скролл до элемента")
+    def scroll_to_element(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});",element)
+
+    @allure.step('Используем скрипт на перетаскивание элемента')
+    def drag_and_drop_js(self, source, target):
+        self.driver.execute_script("""
+        const dataTransfer = new DataTransfer();
+        ['dragstart', 'dragenter', 'dragover', 'drop', 'dragend'].forEach(eventType => {
+        const event = new DragEvent(eventType, { bubbles: true, cancelable: true, dataTransfer });
+        (eventType === 'dragstart' || eventType === 'dragend' ? arguments[0] : arguments[1]).dispatchEvent(event);
+        });
+        """, source, target)
+
+    @allure.step('Клик через JS')
+    def js_click(self, locator):
+        element = self.wait.until(EC.element_to_be_clickable(locator))
+        self.driver.execute_script("arguments[0].click();", element)
+
+    @allure.step("Скроллим контейнер вниз")
+    def scroll_container(self, container, step=100):
+        self.execute_script(
+            "arguments[0].scrollTop += arguments[1];",
+            container,
+            step
+        )
