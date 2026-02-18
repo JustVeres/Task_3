@@ -3,8 +3,8 @@ from selenium import webdriver
 from api_methods import UserApiMethods
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
-from pages.order_feed_page import OrderFeedPage
 from pages.ingredient_page import IngredientPage
+from pages.feed_page import FeedPage
 from pages.account_profile_page import AccountProfilePage
 from pages.order_history_page import OrderHistoryPage
 from pages.forgot_password_page import ForgotPasswordPage
@@ -28,17 +28,16 @@ def driver(request):
 
 """Регистрация и логин пользователя"""
 @pytest.fixture
-def logged_in_user(driver):
+def logged_in_user(driver, login_page, main_page):
     # 1. Создаем пользователя через API
     status, body, payload = UserApiMethods.create_user_api()
     access_token = body["accessToken"]
 
-    login_page = LoginPage(driver)
     login_page.open_login_page()
     login_page.input_email(payload["email"])
     login_page.input_password(payload["password"])
     login_page.click_login_button()
-
+    main_page.wait_url_main_page()
     # 3. Возвращаем данные пользователя для теста
     yield {
         "email": payload["email"],
@@ -61,9 +60,9 @@ def login_page(driver):
     return login_page
 
 @pytest.fixture
-def order_feed_page(driver):
-    order_feed_page = OrderFeedPage(driver)
-    return order_feed_page
+def feed_page(driver):
+    feed_page = FeedPage(driver)
+    return feed_page
 
 @pytest.fixture
 def ingredient_page(driver):

@@ -52,3 +52,6 @@ class OrderFeedLocators:
     ORDER_ID_MODAL = (By.XPATH,"//div[contains(@class,'Modal_modal__contentBox')]//p[contains(@class,'text_type_digits-default')]")
     ORDER_FEED_BLOCK = (By.CSS_SELECTOR, "ul.OrderFeed_list__OLh59")
     ORDER_NUMBER = (By.CSS_SELECTOR, "p.text_type_digits-default")
+    COUNTER_FOR_ALL_TIME = (By.XPATH, "//p[normalize-space(text())='Выполнено за все время:']/following-sibling::p")
+    COUNTER_TODAY = (By.XPATH, "//p[normalize-space(text())='Выполнено за сегодня:']/following-sibling::p")
+    ORDERS_NUMBER_IN_PROGRESS = (By.XPATH, "//p[normalize-space(text())='В работе:']/following-sibling::ul/li")

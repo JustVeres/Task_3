@@ -28,6 +28,7 @@ class BasePage:
 
     """Вспомогательные методы"""
     """Действие: открыть/кликнуть/выбрать/ввести/вернуть etc."""
+
     @allure.step('Открыть URL')
     def open(self, url):
         self.driver.get(url)
@@ -91,6 +92,7 @@ class BasePage:
 
 
     """Ожидание: видимость/исчезновение"""
+
     @allure.step("Ожидать все элементы")
     def find_all_elements(self, locator):
         self.wait.until(EC.visibility_of_all_elements_located(locator))
@@ -116,8 +118,30 @@ class BasePage:
     def wait_invisible_animation(self):
         self.wait_invisible(BPL.MODAL_OVERLAY_ANIMATION)
 
+    @allure.step("Ждём обновления числового значения")
+    def wait_number_to_increase(self, locator, value):
+        def condition(driver):
+            element = driver.find_element(*locator)
+            actual_value = int(element.text)
+
+            if actual_value > value:
+                return actual_value
+
+            return False
+
+        return self.wait.until(condition)
+
+    @allure.step("Ждём появления текста в элементе")
+    def wait_text_to_be_present(self, locator, text):
+        self.wait.until(EC.text_to_be_present_in_element(locator, str(text)))
+
 
     """Скрипты"""
+
+    @allure.step("Выполнение JavaScript")
+    def execute_script(self, script, *args):
+        return self.driver.execute_script(script, *args)
+
     @allure.step("Скролл до элемента")
     def scroll_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});",element)
@@ -131,10 +155,6 @@ class BasePage:
         (eventType === 'dragstart' || eventType === 'dragend' ? arguments[0] : arguments[1]).dispatchEvent(event);
         });
         """, source, target)
-
-    @allure.step("Выполнение JavaScript")
-    def execute_script(self, script, *args):
-        return self.driver.execute_script(script, *args)
 
     @allure.step('Клик через JS')
     def js_click(self, locator):

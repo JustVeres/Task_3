@@ -1,1 +1,0 @@
-details_ingredient_title = "Детали ингредиента"

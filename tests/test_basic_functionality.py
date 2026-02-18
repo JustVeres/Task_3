@@ -1,8 +1,7 @@
 import allure
 import pytest
 from data.data_urls import *
-from data.data_titles import *
-from data.data_helpers import BadValue, BunsIngredient as BI
+from data.data_helpers import BadValue, Titles, BunsIngredient as BI
 
 class TestBasicFunctionality:
 
@@ -22,7 +21,7 @@ class TestBasicFunctionality:
 
     @allure.title('Проверка основного функционала')
     @allure.description('Переход по клику на «Лента заказов»')
-    def test_open_after_click_on_order_feed(self, main_page, login_page, order_feed_page):
+    def test_open_after_click_on_order_feed(self, main_page, login_page, feed_page):
 
         with allure.step("Открываем страницу с логином"):
             login_page.open_login_page()
@@ -30,11 +29,11 @@ class TestBasicFunctionality:
 
         with allure.step("Кликаем по «Лента заказов»"):
             main_page.click_order_feed_header()
-            order_feed_page.wait_url_feed_page()
+            feed_page.wait_url_feed_page()
 
         with allure.step("ОР: Открылся раздел «Лента заказов»"):
-            assert order_feed_page.get_current_url() == ORDER_FEED_URL
-            assert order_feed_page.find_create_burger_title() == "Лента заказов"
+            assert feed_page.get_current_url() == ORDER_FEED_URL
+            assert feed_page.find_create_burger_title() == "Лента заказов"
 
     @allure.title('Проверка основного функционала')
     @allure.description('Если кликнуть на ингредиент, появится всплывающее окно с деталями')
@@ -51,7 +50,7 @@ class TestBasicFunctionality:
             main_page.click_ingredient(bun_name)
 
         with allure.step("ОР: Отображается модальное окно с информацией об ингредиенте"):
-            assert ingredient_page.find_details_ingredient_title() == details_ingredient_title
+            assert ingredient_page.find_details_ingredient_title() == Titles.details_ingredient_title
             assert ingredient_page.find_ingredient_name(bun_name) == bun_name
             assert ingredient_page.find_details_calories_label() == "Калории,ккал"
             assert ingredient_page.find_details_protein_label() == "Белки, г"
@@ -72,7 +71,7 @@ class TestBasicFunctionality:
             ingredient_page.close_modal()
 
         with allure.step("ОР: Модальное окно закрылось"):
-            assert ingredient_page.find_details_ingredient_title() != details_ingredient_title
+            assert ingredient_page.find_details_ingredient_title() != Titles.details_ingredient_title
 
     @allure.title('Проверка основного функционала')
     @allure.description('При добавлении ингредиента в заказ, увеличивается каунтер данного ингредиента')

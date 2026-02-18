@@ -15,8 +15,6 @@ class OrderHistoryPage(BasePage):
 
     @allure.step("Получаем номер заказа из истории заказов")
     def get_order_history_id(self):
-        #element = self.wait_visible_return(OHL.ORDER_ITEMS)
-        #return element.text.lstrip("#")
         element = self.wait_visible_return(OHL.ORDER_ITEMS)
         order_id_str = element.text.lstrip("#")
         return str(int(order_id_str))

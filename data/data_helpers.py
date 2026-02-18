@@ -10,3 +10,6 @@ class BunsIngredient:
 
 class BadValue:
     bad_value_order_id = "9999"
+
+class Titles:
+    details_ingredient_title = "Детали ингредиента"
